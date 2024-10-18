@@ -1,20 +1,21 @@
-//Importamos las librarías requeridas
+// Importamos las librarías requeridas
 const express = require('express')
 const bodyParser = require('body-parser')
 const sqlite3 = require('sqlite3').verbose();
 
-//Documentación en https://expressjs.com/en/starter/hello-world.html
+// Documentación en https://expressjs.com/en/starter/hello-world.html
 const app = express()
 
-//Creamos un parser de tipo application/json
-//Documentación en https://expressjs.com/en/resources/middleware/body-parser.html
+// Creamos un parser de tipo application/json
+//Documentacion en https://expressjs.com/en/resources/middleware/body-parser.html
 const jsonParser = bodyParser.json()
 
 
 // Abre la base de datos de SQLite
-let db = new sqlite3.Database('./base.sqlite3', (err) => {
+const db = new sqlite3.Database('./base.sqlite3', (err) => {
     if (err) {
         console.error(err.message);
+        return;
     }
     console.log('Conectado a la base de datos SQLite.');
 
@@ -33,59 +34,55 @@ let db = new sqlite3.Database('./base.sqlite3', (err) => {
 
 //Creamos un endpoint de login que recibe los datos como json
 app.post('/insert', jsonParser, function (req, res) {
-    //Imprimimos el contenido del campo todo
+    //Imprimimos el contenido del campo todo 
     const { todo } = req.body;
-   
+
     console.log(todo);
     res.setHeader('Content-Type', 'application/json');
-    
+
 
     if (!todo) {
         res.status(400).send('Falta información necesaria');
         return;
     }
-    const stmt  =  db.prepare('INSERT INTO todos (todo, created_at) VALUES (?, CURRENT_TIMESTAMP)');
+    const stmt = db.prepare('INSERT INTO todos (todo, created_at) VALUES (?, CURRENT_TIMESTAMP?)');
 
-    stmt.run(todo, (err) => {
+    stmt.run(todo, createdAt, (err) => {
         if (err) {
-          console.error("Error running stmt:", err);
-          res.status(500).send(err);
-          return;
+            console.error("Error running stmt:", err);
+            res.status(500).send(err);
+            return;
 
         } else {
-          console.log("Insert was successful!");
+            console.log("Insert fue exitoso!");
         }
     });
 
     stmt.finalize();
     
-    //Enviamos de regreso la respuesta
+    // Enviamos de regreso la respuesta
     res.setHeader('Content-Type', 'application/json');
     res.status(201).send();
-})
+});
 
 
-
+// Endpoint raíz
 app.get('/', function (req, res) {
     //Enviamos de regreso la respuesta
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify({ 'status': 'ok' }));
-})
+});
 
-
-//Creamos un endpoint de login que recibe los datos como json
+// Endpoint de login
 app.post('/login', jsonParser, function (req, res) {
-    //Imprimimos el contenido del body
     console.log(req.body);
-
-    //Enviamos de regreso la respuesta
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify({ 'status': 'ok' }));
-})
+});
 
-//Corremos el servidor en el puerto 3000
+// Corremos el servidor en el puerto 3000
 const port = 3000;
 
 app.listen(port, () => {
     console.log(`Aplicación corriendo en http://localhost:${port}`)
-})
+});
