@@ -2,6 +2,7 @@
 
 * Se modificaron algunos aspectos
 * Este mensaje advierte los cambios realizados durante esta actividad
+* Se utiliza Render para la aplicación
 
 ## Crear un nuevo repositorio público
 
@@ -62,18 +63,3 @@ Para interactuar con la base de datos SQLite desde CodeSpace, sigan estos pasos:
    ```
 
 Recuerden que SQLite es sensible a mayúsculas y minúsculas en los nombres de las tablas y columnas. Asegúrense de escribir los comandos exactamente como se muestran.
-
-## Ejemplos
-
-# Hacer fork del repositorio y mandar un cambio
-[![Hacer fork y mandar un cambio en Codespace](assets/fork.gif)](assets/fork.webm)
-
-# Iniciar la aplicación y habilitar el túnel (clic para descargar el video webm, despues elegir 'view raw')
-### Nota: Usen un navegador para ver los videos
-[![Iniciar la aplicación y habilitar el túnel](assets/iniciar.gif)](assets/iniciar.webm)
-
-# Crear una rama y subir los cambios
-[![Crear una rama y subir los cambios](assets/subir_cambio.gif)](assets/subir_cambio.webm)
-
-# Usar Sqlite y Postman 
-[![Usar Sqlite y Postman](assets/insercion.gif)](assets/insercion.webm)
