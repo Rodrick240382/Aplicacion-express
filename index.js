@@ -2,9 +2,11 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const sqlite3 = require('sqlite3').verbose();
+//const cors = require('cors');
 
 //Documentación en https://expressjs.com/en/starter/hello-world.html
 const app = express()
+
 
 //Creamos un parser de tipo application/json
 //Documentación en https://expressjs.com/en/resources/middleware/body-parser.html
@@ -88,4 +90,21 @@ const port = 3000;
 
 app.listen(port, () => {
     console.log(`Aplicación corriendo en http://localhost:${port}`)
+})
+
+/* Middleware para CORS y parsing de JSON
+app.use(cors());
+app.use(express.json());*/
+
+// Endpoint POST /agrega_todo
+app.post('/api/agrega_todo', (req, res) => {
+    // Obtener los datos del body de la solicitud
+    const nuevoDato = req.body;
+    
+    // Validar que los datos no estén vacíos
+    if (!nuevoDato || Object.keys(nuevoDato).length === 0) {
+        return res.status(400).json({
+            error: 'No se proporcionaron datos'
+        });
+    }
 })
