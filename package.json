@@ -1,12 +1,12 @@
 {
-  "name": "actividad-10",
+  "name": "actividadcomplementaria",
   "version": "1.0.0",
-  "description": "",
+  "description": "Asignatura Programacion de dispositivos moviles",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Rodrigo Garcia Chavez",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",

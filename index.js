@@ -33,14 +33,13 @@ let db = new sqlite3.Database('./base.sqlite3', (err) => {
     });
 });
 
-//Creamos un endpoint de login que recibe los datos como json
+//Modificacion del endpoint
 app.post('/insert', jsonParser, function (req, res) {
     //Imprimimos el contenido del campo todo
     const { todo } = req.body;
    
     console.log(todo);
     res.setHeader('Content-Type', 'application/json');
-    
 
     if (!todo) {
         res.status(400).send('Falta información necesaria');
@@ -66,14 +65,28 @@ app.post('/insert', jsonParser, function (req, res) {
     res.status(201).send();
 })
 
-
-
 app.get('/', function (req, res) {
     //Enviamos de regreso la respuesta
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify({ 'status': 'ok2' }));
 })
 
+// Endpoint para obtener la lista de todos (creado el 11 mayo 2025)
+app.get('/todos', (req, res) => {
+    const query = 'SELECT * FROM todos';
+
+    db.all(query, [], (err, rows) => {
+        if (err) {
+            console.error("Error al ejecutar la consulta:", err);
+            res.status(500).json({ error: "Error al obtener los datos" });
+            return;
+        }
+
+        // Enviamos los resultados como JSON
+        res.setHeader('Content-Type', 'application/json');
+        res.status(200).json(rows);
+    });
+});
 
 //Creamos un endpoint de login que recibe los datos como json
 app.post('/login', jsonParser, function (req, res) {
@@ -91,10 +104,6 @@ const port = 3000;
 app.listen(port, () => {
     console.log(`Aplicación corriendo en http://localhost:${port}`)
 })
-
-/* Middleware para CORS y parsing de JSON
-app.use(cors());
-app.use(express.json());*/
 
 // Endpoint POST /agrega_todo
 app.post('/api/agrega_todo', (req, res) => {

@@ -1,3 +1,8 @@
+## Esta es una aplicación clonada para la actividad de la asignatura de programación
+
+* Se modificaron algunos aspectos
+* Este mensaje advierte los cambios realizados durante esta actividad
+
 ## Crear un nuevo repositorio público
 
 * Copien los archivos index.js, .gitignore y package.json a este nuevo repositorio.
